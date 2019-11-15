@@ -9,5 +9,10 @@ export default (state = defalutState,action) =>{
         newState.inputValue = action.value
         return newState
     }
+    if(action.type === 'add_item'){
+        let newState = JSON.parse(JSON.stringify(state))
+        newState.list.push(newState.inputValue)
+        return newState
+    }
     return state
 }
