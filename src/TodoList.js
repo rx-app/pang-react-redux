@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import store from './store.js';
+import store from './store/index.js';
+import {connect} from 'react-redux'
 class TodoList extends Component {
     constructor(props){
         super(props)
@@ -8,7 +9,7 @@ class TodoList extends Component {
     render() { 
         return (
             <div>
-                <input value={this.state.inputValue} />
+                <input value={this.props.inputValue} />
                 <div><input /><button>提交</button></div>
                 <ul>
                     <li>JSPang</li>
@@ -17,4 +18,9 @@ class TodoList extends Component {
             );
     }
 }
-export default TodoList;
+const stateToProps = (state)=>{
+    return {
+        inputValue : state.inputValue
+    }
+}
+export default connect(stateToProps,null)(TodoList);
