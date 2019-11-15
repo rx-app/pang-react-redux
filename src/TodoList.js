@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import store from './store/index.js';
+import store from './store'
 import {connect} from 'react-redux'
+
 class TodoList extends Component {
     constructor(props){
         super(props)
-        this.state = store.getState();
+        this.state = store.getState()
     }
     render() { 
         return (
             <div>
-                <input value={this.props.inputValue} />
-                <div><input /><button>提交</button></div>
+                <div>
+                    <input value={this.props.inputValue} onChange={this.props.inputChange} />
+                    <button>提交</button>
+                </div>
                 <ul>
                     <li>JSPang</li>
                 </ul>
@@ -23,4 +26,17 @@ const stateToProps = (state)=>{
         inputValue : state.inputValue
     }
 }
-export default connect(stateToProps,null)(TodoList);
+
+const dispatchToProps = (dispatch) =>{
+    return {
+        inputChange(e){
+            let action = {
+                type:'change_input',
+                value:e.target.value
+            }
+            dispatch(action)
+        }
+    }
+}
+ 
+export default connect(stateToProps,dispatchToProps)(TodoList);
